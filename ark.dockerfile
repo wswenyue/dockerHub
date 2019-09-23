@@ -1,5 +1,5 @@
 FROM ubuntu:16.04 
-MAINTAINER wwswenyue wswenyue@163.com
+MAINTAINER wswenyue wswenyue@163.com
 
 RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && \
 	sed -i 's/security.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && \
