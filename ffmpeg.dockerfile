@@ -26,7 +26,7 @@ RUN buildDeps="autoconf \
                 libssl-dev \
                 yasm \
                 zlib1g-dev" && \
-    apt-get install -y --no-install-recommends ${buildDeps}
+    apt-get install -y  ${buildDeps}
 
 RUN mkdir -p /ffmpegsrc /ffmpegsrc/out && \
     cd /ffmpegsrc && \
