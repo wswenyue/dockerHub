@@ -28,10 +28,11 @@ RUN buildDeps="autoconf \
                 zlib1g-dev" && \
     apt-get install -y --no-install-recommends ${buildDeps}
 
-RUN mkdir -p /src /src/bin && \
-    curl -sL https://github.com/FFmpeg/FFmpeg/archive/n4.2.1.tar.gz -o ffmpeg_source.zip | \
-    tar -zx --strip-components=1 && \
-    rm -f /src/n4.2.1.tar.gz
+RUN mkdir -p /src /src/out && \
+    cd /src && \
+    curl -#LO https://ffmpeg.org/releases/ffmpeg-4.2.1.tar.bz2 && \
+    tar -jvx --strip-components=1 -f ffmpeg-4.2.1.tar.bz2 && \
+    rm ffmpeg-4.2.1.tar.bz2
 
 
 
