@@ -28,15 +28,15 @@ RUN buildDeps="autoconf \
                 zlib1g-dev" && \
     apt-get install -y --no-install-recommends ${buildDeps}
 
-RUN mkdir -p /src /src/out && \
-    cd /src && \
+RUN mkdir -p /ffmpegsrc /ffmpegsrc/out && \
+    cd /ffmpegsrc && \
     curl -#LO https://ffmpeg.org/releases/ffmpeg-4.2.1.tar.bz2 && \
     tar -jvx --strip-components=1 -f ffmpeg-4.2.1.tar.bz2 && \
     rm ffmpeg-4.2.1.tar.bz2
 
 
 
-WORKDIR /src
+WORKDIR /ffmpegsrc
 
 RUN ["/bin/bash", "-c", "./configure --prefix=\"/src/bin\" --disable-x86asm  && make -j 8 && make install && make distclean"]
 
