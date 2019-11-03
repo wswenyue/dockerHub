@@ -33,10 +33,10 @@ RUN mkdir /Android && cd Android && mkdir output
 WORKDIR /Android
 
 # RUN aria2c -x16 http://dl.google.com/android/android-sdk_r24.3.3-linux.tgz
-COPY android-sdk_r24.3.3-linux.tgz /Android/
+ADD ./android-sdk_r24.3.3-linux.tgz /Android/
 
 # RUN aria2c -x16 https://dl.google.com/android/repository/android-ndk-r10e-linux-x86_64.zip
-COPY android-ndk-r10e-linux-x86_64.zip /Android/
+ADD ./android-ndk-r10e-linux-x86_64.zip /Android/
 
 # Extracting ndk/sdk
 RUN tar zxvf android-sdk_r24.3.3-linux.tgz -C /Android/android-sdk-linux && \
