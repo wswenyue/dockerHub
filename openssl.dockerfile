@@ -32,14 +32,19 @@ RUN buildDeps="autoconf \
 RUN mkdir /Android && cd Android && mkdir output
 WORKDIR /Android
 
-RUN aria2c -x16 http://dl.google.com/android/android-sdk_r24.3.3-linux.tgz
-RUN aria2c -x16 http://dl.google.com/android/ndk/android-ndk-r10e-linux-x86_64.bin
+# RUN aria2c -x16 http://dl.google.com/android/android-sdk_r24.3.3-linux.tgz
+COPY android-sdk_r24.3.3-linux.tgz /Android/
+
+# RUN aria2c -x16 https://dl.google.com/android/repository/android-ndk-r10e-linux-x86_64.zip
+COPY android-ndk-r10e-linux-x86_64.zip /Android/
 
 # Extracting ndk/sdk
+RUN tar zxvf android-sdk_r24.3.3-linux.tgz -C /Android/android-sdk-linux && \
+    unzip -o android-ndk-r10e-linux-x86_64.zip
 
-RUN tar -xvzf android-sdk_r24.3.3-linux.tgz && \
-	chmod a+x android-ndk-r10e-linux-x86_64.bin && \
-	7z x android-ndk-r10e-linux-x86_64.bin
+# RUN tar -xvzf android-sdk_r24.3.3-linux.tgz && \
+# 	chmod a+x android-ndk-r10e-linux-x86_64.bin && \
+# 	7z x android-ndk-r10e-linux-x86_64.bin
 
 
 # Set ENV variables
