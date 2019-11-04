@@ -33,14 +33,14 @@ RUN mkdir /Android && cd Android && mkdir output
 WORKDIR /Android
 
 # RUN aria2c -x16 http://dl.google.com/android/android-sdk_r24.3.3-linux.tgz
-ADD ./android-sdk_r24.3.3-linux.tgz /Android/
+COPY ./android-sdk_r24.3.3-linux.tgz /Android/
 
 # RUN aria2c -x16 https://dl.google.com/android/repository/android-ndk-r10e-linux-x86_64.zip
-ADD ./android-ndk-r10e-linux-x86_64.zip /Android/
+COPY ./android-ndk-r10e-linux-x86_64.zip /Android/
 
 # Extracting ndk/sdk
-RUN tar zxvf android-sdk_r24.3.3-linux.tgz -C /Android/android-sdk-linux && \
-    unzip -o android-ndk-r10e-linux-x86_64.zip
+RUN ls -alh && tar zxvf ./android-sdk_r24.3.3-linux.tgz && \
+    ls -alh && unzip -o ./android-ndk-r10e-linux-x86_64.zip
 
 # RUN tar -xvzf android-sdk_r24.3.3-linux.tgz && \
 # 	chmod a+x android-ndk-r10e-linux-x86_64.bin && \
@@ -81,10 +81,12 @@ ENV CXXFLAGS -std=c++14 -Wno-error=unused-command-line-argument
 
 # download, configure and make Zlib
 
-RUN curl -O http://zlib.net/zlib-1.2.8.tar.gz && \
-	tar -xzf zlib-1.2.8.tar.gz && \
-	mv zlib-1.2.8 zlib
-RUN cd zlib && ./configure --static && \
+# RUN aria2c https://www.zlib.net/fossils/zlib-1.2.8.tar.gz
+COPY ./zlib-1.2.8.tar.gz /Android/
+
+RUN tar -xzf ./zlib-1.2.8.tar.gz && \
+    mv zlib-1.2.8 zlib && \
+    cd zlib && ./configure --static && \
 	make && \
 	ls -hs . && \
 	cp libz.a /Android/output
@@ -94,8 +96,9 @@ RUN cd zlib && ./configure --static && \
 
 ENV CPPFLAGS -mthumb -mfloat-abi=softfp -mfpu=vfp -march=$ARCH  -DANDROID
 
-RUN curl -O https://www.openssl.org/source/openssl-1.0.2d.tar.gz && \
-	tar -xzf openssl-1.0.2d.tar.gz
+# RUN aria2c -x16 https://www.openssl.org/source/openssl-1.0.2d.tar.gz
+COPY ./openssl-1.0.2d.tar.gz /Android/
+RUN ls -alh && tar -xzf openssl-1.0.2d.tar.gz
 
 
 # Build armv7
@@ -115,4 +118,4 @@ RUN cp -r openssl-1.0.2d /Android/output/openssl-armv7
 
 # To get the results run container with output folder
 # Example: docker run -v HOSTFOLDER:/output --rm=true IMAGENAME 
-ENTRYPOINT cp -r /Android/output/* /output
+# ENTRYPOINT cp -r /Android/output/* /output
