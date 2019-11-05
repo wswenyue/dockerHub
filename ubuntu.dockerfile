@@ -36,7 +36,8 @@ RUN buildDeps="autoconf \
 
 # zsh oh-my-zsh
 RUN apt-get install -y zsh && chsh -s $(which zsh) && \
-    sh -c "$(wget -qO- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    sh -c "$(wget -qO- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" && \
+    sed -i 's/PROMPT="/PROMPT="Ws /g' /root/.oh-my-zsh/themes/robbyrussell.zsh-theme
 
 
 
