@@ -26,9 +26,19 @@ RUN buildDeps="autoconf \
     apt-get install -y  ${buildDeps} && \
     # Language、Tools
     buildTools="git \
+                vim \
+                iputils-ping \
+                net-tools \
                 python \
                 perl" && \
     apt-get install -y  ${buildTools}
+
+
+# zsh oh-my-zsh
+RUN apt-get install -y zsh && chsh -s $(which zsh) && \
+    sh -c "$(wget -qO- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+
 
 
 
