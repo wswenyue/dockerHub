@@ -29,6 +29,7 @@ RUN buildDeps="autoconf \
                 vim \
                 iputils-ping \
                 net-tools \
+                tree \
                 python \
                 perl" && \
     apt-get install -y  ${buildTools}
